@@ -1,0 +1,11 @@
+{
+  "name": "bwoc",
+  "description": "BWOC fleet adapter for OpenAI Codex — coordination skills, hooks, and deep-memory via the bwoc CLI.",
+  "plugins": [
+    {
+      "name": "bwoc",
+      "source": "./",
+      "description": "BWOC → OpenAI Codex plugin adapter. Wraps the `bwoc` CLI to list/status/send/run/chat agents and coordinate teams, tasks, and memory."
+    }
+  ]
+}

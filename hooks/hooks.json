@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "command -v bwoc >/dev/null 2>&1 || echo \"[bwoc-plugin-codex] warning: 'bwoc' CLI not found on PATH; skills will fail until it is installed (PLUGIN_ROOT=$PLUGIN_ROOT)\" >&2"
+          }
+        ]
+      }
+    ]
+  }
+}
