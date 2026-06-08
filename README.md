@@ -102,7 +102,7 @@ prettier --check .           # lint
 - [x] Coordination skills (`list/status/send/run/chat/task/team`)
 - [x] Deep-memory skill
 - [x] `.agents/plugins/marketplace.json` for repo-local install
-- [ ] Skill re-export from BWOC skills
+- [x] Skill re-export from BWOC skills (scripts/sync-skills.sh)
 - [ ] Smoke test inside Codex
 
 ## 🔗 BWOC host-adapter set

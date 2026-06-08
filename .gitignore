@@ -3,3 +3,5 @@
 .DS_Store
 .bwoc/
 node_modules/
+# Generated framework skill re-exports (see scripts/sync-skills.sh)
+/skills/fw-*/
