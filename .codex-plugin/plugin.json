@@ -1,0 +1,7 @@
+{
+  "name": "bwoc",
+  "version": "0.0.1",
+  "description": "BWOC fleet adapter for OpenAI Codex — coordination, skills, and deep-memory via the bwoc CLI.",
+  "skills": "./skills/",
+  "hooks": "./hooks/hooks.json"
+}
