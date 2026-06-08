@@ -6,6 +6,7 @@
 
 <p align="center">
   <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg">
+  <a href="https://bemindlabs.github.io/bwoc-handbook/"><img alt="Handbook" src="https://img.shields.io/badge/docs-BWOC%20Handbook-1f6feb"></a>
   <img alt="Status" src="https://img.shields.io/badge/status-WIP-orange">
   <img alt="Host" src="https://img.shields.io/badge/host-OpenAI%20Codex-10a37f">
   <img alt="Part of BWOC" src="https://img.shields.io/badge/part%20of-BWOC-6f42c1">
@@ -46,6 +47,7 @@ Hook commands receive `PLUGIN_ROOT` and `PLUGIN_DATA` in the environment. Every 
 
 - [OpenAI Codex](https://developers.openai.com/codex)
 - The [`bwoc` CLI](https://github.com/bemindlabs/BWOC-Framework) installed and on `PATH`
+- 📚 Reference: the [BWOC Handbook](https://bemindlabs.github.io/bwoc-handbook/)
 - A BWOC workspace (`bwoc init`) reachable from where Codex runs
 
 ## 📦 Installation
