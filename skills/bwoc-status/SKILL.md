@@ -27,10 +27,10 @@ bwoc status [NAME]
 
 ```bash
 bwoc status                  # summary table for the whole fleet
-bwoc status agent-luban      # single-agent detail
-bwoc status luban --json     # JSON snapshot
+bwoc status <agent>      # single-agent detail
+bwoc status <agent> --json     # JSON snapshot
 bwoc status --all            # every agent's detail block
-bwoc status luban --banner   # replay startup banner
+bwoc status <agent> --banner   # replay startup banner
 ```
 
 This is a thin, read-only wrapper. Relay the output to the user.

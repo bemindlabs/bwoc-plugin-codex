@@ -28,9 +28,9 @@ bwoc send <TO> <MESSAGE>
 ## Examples
 
 ```bash
-bwoc send agent-luban "Please draft the API spec for the new endpoint."
-bwoc send luban --file ./brief.md
-bwoc send luban "ack" --from agent-caoguojiu --reply-to msg-foo-1a2b
+bwoc send <agent> "Please draft the API spec for the new endpoint."
+bwoc send <agent> --file ./brief.md
+bwoc send <agent> "ack" --from <agent> --reply-to <msg-id>
 ```
 
 Always quote the message safely so shell metacharacters in user text are not interpreted. This is a thin wrapper — no business logic.

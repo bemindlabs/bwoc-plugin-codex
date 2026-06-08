@@ -33,12 +33,12 @@ All subcommands accept `--workspace <PATH>` and `--lang <en|th>`.
 ## Examples
 
 ```bash
-bwoc task list build-squad
-bwoc task add build-squad "Wire the new endpoint" --deps t1,t2
-bwoc task claim build-squad t3 --as agent-luban
-bwoc task plan build-squad t3 --as agent-luban --plan "1. spec 2. impl 3. test"
-bwoc task approve build-squad t3
-bwoc task complete build-squad t3 --as agent-luban
+bwoc task list <team>
+bwoc task add <team> "Wire the new endpoint" --deps t1,t2
+bwoc task claim <team> <task> --as <agent>
+bwoc task plan <team> <task> --as <agent> --plan "1. spec 2. impl 3. test"
+bwoc task approve <team> t3
+bwoc task complete <team> <task> --as <agent>
 ```
 
 Quote titles and plan text safely. This is a thin wrapper — no business logic.

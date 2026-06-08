@@ -40,8 +40,8 @@ Most subcommands accept `--workspace <PATH>` and `--lang <en|th>`.
 bwoc memory list
 bwoc memory show --all
 bwoc memory search "deploy plan"
-bwoc memory wake-up agent-luban
-bwoc memory t2-search "auth refactor" agent-luban
+bwoc memory wake-up <agent>
+bwoc memory t2-search "auth refactor" <agent>
 ```
 
 Prefer the read-only subcommands (`list`, `show`, `search`, `wake-up`, `t2-search`). Treat `put`, `rm`, and `mine` as mutating — only run when explicitly requested. This is a thin wrapper — no business logic.

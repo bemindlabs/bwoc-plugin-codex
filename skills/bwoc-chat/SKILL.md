@@ -27,9 +27,9 @@ bwoc chat <NAME>
 ## Examples
 
 ```bash
-bwoc chat agent-luban
-bwoc chat luban --tmux
-bwoc chat luban --tui --team build-squad
+bwoc chat <agent>
+bwoc chat <agent> --tmux
+bwoc chat <agent> --tui --team <team>
 ```
 
 Note: `chat` is interactive and takes over the terminal. In a non-interactive Codex context prefer `bwoc-run` for a captured one-shot result. This is a thin wrapper — no business logic.

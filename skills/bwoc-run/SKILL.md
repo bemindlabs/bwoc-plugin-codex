@@ -26,9 +26,9 @@ bwoc run <AGENT> --task "<TASK>"
 ## Examples
 
 ```bash
-bwoc run agent-luban --task "List three risks in the current deploy plan."
-bwoc run luban --task "Summarize open PRs" --json
-bwoc run luban --task "Long analysis" --timeout 300
+bwoc run <agent> --task "List three risks in the current deploy plan."
+bwoc run <agent> --task "Summarize open PRs" --json
+bwoc run <agent> --task "Long analysis" --timeout 300
 ```
 
 Quote the task safely so user text with shell metacharacters is not interpreted. This is a thin wrapper — relay the captured output (or parsed JSON) to the user.

@@ -68,9 +68,9 @@ enabled = true
 
 ```text
 @bwoc list                 # list registered agents
-@bwoc status agent-luban   # health + identity snapshot
-@bwoc send agent-luban ... # append a message to an agent's inbox
-@bwoc run  agent-luban ... # run a single task headless, capture result
+@bwoc status <agent>   # health + identity snapshot
+@bwoc send <agent> ... # append a message to an agent's inbox
+@bwoc run  <agent> ... # run a single task headless, capture result
 "Summarize the BWOC team's open tasks"   # natural-language invocation
 ```
 
@@ -115,9 +115,9 @@ One of five BWOC → host adapters — **八仙過海・各顯神通** (the Eigh
 | OpenClaw | [bwoc-plugin-openclaw](https://github.com/bemindlabs/bwoc-plugin-openclaw) | 鐵拐李 Li Tieguai |
 | Hermes | [bwoc-plugin-hermes](https://github.com/bemindlabs/bwoc-plugin-hermes) | 漢鍾離 Han Zhongli |
 
-## 🙏 Steward
+## 🙏 Maintainer
 
-Maintained by **`agent-caoguojiu`** (曹國舅 Cao Guojiu) — the immortal who carries the imperial jade tablet. Fitting for the official, curated host.
+Maintained by **Bemind Technology**, part of the BWOC host-adapter set. This connector is **generic**: it ships no agents, teams, or workspace identities of its own — it discovers your fleet from the local `bwoc` workspace at runtime.
 
 ## 🤝 Contributing
 

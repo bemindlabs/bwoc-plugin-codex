@@ -28,8 +28,8 @@ All subcommands accept `--workspace <PATH>` and `--lang <en|th>`.
 
 ```bash
 bwoc team list
-bwoc team create build-squad --members agent-luban,agent-nezha,agent-taibai
-bwoc team retire build-squad --yes
+bwoc team create <team> --members <agent>,<agent>,<agent>
+bwoc team retire <team> --yes
 ```
 
 This is a thin wrapper — no business logic. Surface results to the user.
