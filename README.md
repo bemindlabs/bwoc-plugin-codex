@@ -1,27 +1,128 @@
-# bwoc-plugin-codex
+<h1 align="center">bwoc-plugin-codex</h1>
 
-> **BWOC → OpenAI Codex plugin adapter.** Exposes the BWOC agent fleet — coordination CLI, agents-as-subagents, skills, and deep-memory — into **OpenAI Codex** by wrapping the `bwoc` CLI.
+<p align="center">
+  <strong>BWOC → OpenAI Codex</strong> plugin adapter — bring the BWOC agent fleet into <a href="https://developers.openai.com/codex">OpenAI Codex</a>.
+</p>
 
-**Status:** 🚧 WIP scaffold.
-Part of the BWOC **八仙過海・各顯神通** host-adapter set (Eight Immortals crossing the sea — each adapter crosses into a foreign host by its own plugin format).
+<p align="center">
+  <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg">
+  <img alt="Status" src="https://img.shields.io/badge/status-WIP-orange">
+  <img alt="Host" src="https://img.shields.io/badge/host-OpenAI%20Codex-10a37f">
+  <img alt="Part of BWOC" src="https://img.shields.io/badge/part%20of-BWOC%20%E5%85%AB%E4%BB%99-6f42c1">
+  <img alt="Mechanism" src="https://img.shields.io/badge/mechanism-wraps%20bwoc%20CLI-informational">
+</p>
 
-**Steward:** `agent-caoguojiu` (Cao Guojiu 曹國舅) — debased to this project ([`bwoc debase`](https://github.com/bemindlabs/BWOC-Framework)).
+---
 
-## What it exposes
+## ✨ Overview
 
-| Surface | Wraps |
-|---|---|
-| Coordination | `bwoc list / status / send / run / chat / task / team` |
-| Agents | BWOC `agents/agent-*` re-exported as OpenAI Codex sub-agents |
-| Skills | BWOC skills re-exported as OpenAI Codex skills |
-| Deep-memory | `bwoc memory` bridge |
+`bwoc-plugin-codex` packages the [**BWOC**](https://github.com/bemindlabs/BWOC-Framework) agent fleet as an **OpenAI Codex plugin** — a bundle of skills, hooks, and (optionally) MCP servers that let Codex drive your BWOC workspace: list agents, send work, run headless tasks, coordinate teams, and read shared memory.
 
-Mechanism: **shell-out to the `bwoc` CLI** — no standing server. The host must have `bwoc` on `PATH`.
+It is **declarative + shell-out**: every skill wraps the `bwoc` CLI. No background server, no daemon.
 
-## Manifest
+> [!NOTE]
+> **Status: WIP.** Manifest and layout are in place; skill bodies are landing incrementally. See the [roadmap](#️-roadmap).
 
-Host plugin manifest: `.codex-plugin/plugin.json`
+## 🧩 What it exposes
 
-## License
+| Surface | BWOC capability | Wraps |
+|---|---|---|
+| **Skills** | Coordinate the fleet | `bwoc list` · `status` · `send` · `run` · `chat` · `task` · `team` |
+| **Skills** | Reuse BWOC skills | BWOC skills re-exported as `skills/<name>/SKILL.md` |
+| **Hooks** | Lifecycle side effects | `hooks/hooks.json` |
+| **Memory** | Shared deep-memory | `bwoc memory` bridge |
 
-MIT © Bemind Technology
+## 🏗️ How it works
+
+```
+Codex  ──@bwoc skill──▶  skill instructions  ──exec──▶  bwoc CLI  ──▶  BWOC workspace
+                                                                       (agents, teams,
+                                                                        tasks, memory)
+```
+
+Hook commands receive `PLUGIN_ROOT` and `PLUGIN_DATA` in the environment. Every surface is a thin wrapper over a `bwoc` subcommand.
+
+## 📋 Prerequisites
+
+- [OpenAI Codex](https://developers.openai.com/codex)
+- The [`bwoc` CLI](https://github.com/bemindlabs/BWOC-Framework) installed and on `PATH`
+- A BWOC workspace (`bwoc init`) reachable from where Codex runs
+
+## 📦 Installation
+
+Add this repo to a marketplace, then enable it. A repo-local marketplace lives at `$REPO_ROOT/.agents/plugins/marketplace.json`; a personal one at `~/.agents/plugins/marketplace.json`.
+
+```bash
+# browse / install from the Codex CLI
+/plugins
+```
+
+Enable in `~/.codex/config.toml`:
+
+```toml
+[plugins."bwoc@bwoc"]
+enabled = true
+```
+
+## 🚀 Usage
+
+```text
+@bwoc list                 # list registered agents
+@bwoc status agent-luban   # health + identity snapshot
+@bwoc send agent-luban ... # append a message to an agent's inbox
+@bwoc run  agent-luban ... # run a single task headless, capture result
+"Summarize the BWOC team's open tasks"   # natural-language invocation
+```
+
+## 🗂️ Repository layout
+
+```
+bwoc-plugin-codex/
+├── .codex-plugin/
+│   └── plugin.json          # plugin manifest (name/version/description/skills/hooks)
+├── skills/                  # skills wrapping `bwoc` (skills/<name>/SKILL.md)
+├── hooks/hooks.json         # lifecycle hooks
+├── .mcp.json                # optional MCP servers
+└── scripts/                 # validate.sh / build.sh
+```
+
+## 🛠️ Development
+
+```bash
+bash scripts/validate.sh     # validate .codex-plugin/plugin.json
+bash scripts/build.sh        # regenerate the host tree from the live workspace
+prettier --check .           # lint
+```
+
+## 🗺️ Roadmap
+
+- [x] Scaffold: manifest, README, license
+- [ ] Coordination skills (`list/status/send/run/chat/task/team`)
+- [ ] Skill re-export from BWOC skills
+- [ ] Deep-memory skill
+- [ ] `.agents/plugins/marketplace.json` for repo-local install
+- [ ] Smoke test inside Codex
+
+## 🌊 The Eight Immortals host-adapter set
+
+One of five BWOC → host adapters — **八仙過海・各顯神通** (the Eight Immortals cross the sea, each by their own power):
+
+| Host | Repo | Steward |
+|---|---|---|
+| Claude Code | [bwoc-plugin-claude](https://github.com/bemindlabs/bwoc-plugin-claude) | 呂洞賓 Lü Dongbin |
+| **OpenAI Codex** | [bwoc-plugin-codex](https://github.com/bemindlabs/bwoc-plugin-codex) | 曹國舅 Cao Guojiu |
+| Antigravity | [bwoc-plugin-agy](https://github.com/bemindlabs/bwoc-plugin-agy) | 張果老 Zhang Guolao |
+| OpenClaw | [bwoc-plugin-openclaw](https://github.com/bemindlabs/bwoc-plugin-openclaw) | 鐵拐李 Li Tieguai |
+| Hermes | [bwoc-plugin-hermes](https://github.com/bemindlabs/bwoc-plugin-hermes) | 漢鍾離 Han Zhongli |
+
+## 🙏 Steward
+
+Maintained by **`agent-caoguojiu`** (曹國舅 Cao Guojiu) — the immortal who carries the imperial jade tablet. Fitting for the official, curated host.
+
+## 🤝 Contributing
+
+Issues and PRs welcome. Keep the plugin a **thin wrapper over the `bwoc` CLI** — logic belongs in the framework, not here.
+
+## 📄 License
+
+[MIT](LICENSE) © Bemind Technology
