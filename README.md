@@ -22,7 +22,7 @@
 It is **declarative + shell-out**: every skill wraps the `bwoc` CLI. No background server, no daemon.
 
 > [!NOTE]
-> **Status: WIP.** Coordination skills, hooks, and a repo-local marketplace are implemented and wrap the `bwoc` CLI. Remaining: skill re-export and a host smoke-test — see the [roadmap](#️-roadmap).
+> **Status: WIP.** Coordination skills, hooks, a repo-local marketplace, and skill re-export are implemented and wrap the `bwoc` CLI. Remaining: a host smoke-test — see the [roadmap](#️-roadmap).
 
 ## 🧩 What it exposes
 
@@ -107,7 +107,7 @@ prettier --check .           # lint
 
 ## 🔗 BWOC host-adapter set
 
-One of five BWOC → host adapters, one per agent host:
+One of seven BWOC → host adapters, one per agent host:
 
 | Host | Repo |
 |---|---|
@@ -116,6 +116,8 @@ One of five BWOC → host adapters, one per agent host:
 | Antigravity | [bwoc-plugin-agy](https://github.com/bemindlabs/bwoc-plugin-agy) |
 | OpenClaw | [bwoc-plugin-openclaw](https://github.com/bemindlabs/bwoc-plugin-openclaw) |
 | Hermes | [bwoc-plugin-hermes](https://github.com/bemindlabs/bwoc-plugin-hermes) |
+| Cursor | [bwoc-plugin-cursor](https://github.com/bemindlabs/bwoc-plugin-cursor) |
+| Vercel | [bwoc-plugin-vercel](https://github.com/bemindlabs/bwoc-plugin-vercel) |
 
 ## 🙏 Maintainer
 
