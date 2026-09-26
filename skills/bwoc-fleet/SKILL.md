@@ -37,7 +37,7 @@ Agents are persistent, named, backend-neutral workers (Claude, Codex, Antigravit
 3. **Delegate**:
    - Need an answer now? `bwoc run <agent> --task "..."` and relay the captured output.
    - Just queuing work? `bwoc send <agent> "..."` (fire-and-forget).
-4. **Coordinate a team** — `bwoc team create <id> --members ...`, then drive the shared list with `bwoc task add/list/claim/complete`. Plan-gated tasks use `task plan` → `task approve` → `task complete` (Pavāraṇā).
+4. **Coordinate a team** — `bwoc team create <id> --members a,b,c`, then drive the shared list with `bwoc task add/list/claim/complete`. Plan-gated tasks use `task plan` → `task approve` → `task complete` (Pavāraṇā).
 5. **Remember** — `bwoc memory search "<topic>"` or `bwoc memory wake-up <agent>` to pull prior context before deciding.
 
 ## Safety rules
