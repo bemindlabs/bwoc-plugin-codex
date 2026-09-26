@@ -28,7 +28,7 @@ Agents are persistent, named, backend-neutral workers (Claude, Codex, Antigravit
 | Interactive back-and-forth | `bwoc-chat` | `bwoc chat <name>` |
 | Coordinate work across a team | `bwoc-task` | `bwoc task <add\|list\|claim\|complete\|plan\|approve>` |
 | Organize agents into groups | `bwoc-team` | `bwoc team <create\|list\|retire>` |
-| Recall prior decisions/notes | `bwoc-memory` | `bwoc memory <list\|show\|search\|wake-up\|t2-search>` |
+| Recall prior decisions/notes | `bwoc-memory` | `bwoc memory <list\|show\|search\|wake-up>` |
 
 ## A typical coordination flow
 
@@ -42,7 +42,7 @@ Agents are persistent, named, backend-neutral workers (Claude, Codex, Antigravit
 
 ## Safety rules
 
-- Prefer **read-only** verbs when exploring: `list`, `status`, `team list`, `task list`, `memory list/show/search/wake-up/t2-search`.
+- Prefer **read-only** verbs when exploring: `list`, `status`, `team list`, `task list`, `memory list/show/search/wake-up`.
 - **Mutating** verbs (`send`, `run`, `chat`, `task add/claim/complete`, `team create/retire`, `memory put/rm/mine`) act on the live fleet — run them only when the user's intent is clear.
 - Always quote user-supplied text (messages, task titles, plans) so shell metacharacters are not interpreted.
 - Keep everything a thin wrapper — business logic lives in the BWOC framework, not in this plugin.

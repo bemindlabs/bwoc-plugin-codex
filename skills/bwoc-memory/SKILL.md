@@ -29,7 +29,7 @@ Tier 1 — user-authored memory entries:
 Tier 2 — deep memory (per agent, via `deepMemoryCmd`):
 
 - **wake-up** — `bwoc memory wake-up <AGENT>` — emit prior context at session start.
-- **t2-search** — `bwoc memory t2-search <QUERY> <AGENT>` — search past decisions/notes.
+- **search --tier 2** — `bwoc memory search <QUERY> <AGENT> --tier 2` — search past decisions/notes (`memory t2-search` is deprecated since 3.2, removed in 4.0).
 - **mine** — `bwoc memory mine <path> --mode <mode>` — persist session learnings at session end.
 
 Most subcommands accept `--workspace <PATH>` and `--lang <en|th>`.
@@ -41,7 +41,7 @@ bwoc memory list
 bwoc memory show --all
 bwoc memory search "deploy plan"
 bwoc memory wake-up <agent>
-bwoc memory t2-search "auth refactor" <agent>
+bwoc memory search "auth refactor" <agent> --tier 2
 ```
 
-Prefer the read-only subcommands (`list`, `show`, `search`, `wake-up`, `t2-search`). Treat `put`, `rm`, and `mine` as mutating — only run when explicitly requested. This is a thin wrapper — no business logic.
+Prefer the read-only subcommands (`list`, `show`, `search`, `wake-up`). Treat `put`, `rm`, and `mine` as mutating — only run when explicitly requested. This is a thin wrapper — no business logic.
