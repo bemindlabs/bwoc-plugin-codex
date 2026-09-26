@@ -24,6 +24,8 @@ DIRS = ("skills", "hooks")
 # itself — as a subcommand (`bwoc <verb> --help`, a generic pattern) or as a
 # typed value (`--current <n>` wants a number) — that is not a contract break.
 PLACEHOLDER = "x-placeholder"
+# `--help` only parses; a CLI that hangs here is broken, and must not stall CI.
+TIMEOUT_S = 30
 
 
 def snippets(text):
@@ -74,9 +76,19 @@ def main():
                     if not argv or key in checked:
                         continue
                     checked.add(key)
-                    r = subprocess.run(
-                        [BWOC, *argv, "--help"], capture_output=True, text=True
-                    )
+                    try:
+                        r = subprocess.run(
+                            [BWOC, *argv, "--help"],
+                            capture_output=True,
+                            text=True,
+                            timeout=TIMEOUT_S,
+                        )
+                    except subprocess.TimeoutExpired:
+                        rel = path.relative_to(ROOT)
+                        rejected.append(
+                            f"{rel}:{no}: bwoc {' '.join(argv)} → hung past {TIMEOUT_S}s"
+                        )
+                        continue
                     generic = any(
                         f"{what} '{PLACEHOLDER}'" in r.stderr
                         for what in ("unrecognized subcommand", "invalid value")
@@ -85,8 +97,14 @@ def main():
                         why = (r.stderr or r.stdout).strip().splitlines()[:1]
                         rel = path.relative_to(ROOT)
                         rejected.append(f"{rel}:{no}: bwoc {' '.join(argv)} → {why}")
-    version = subprocess.run([BWOC, "--version"], capture_output=True, text=True)
-    print(f"cli contract: {len(checked)} commands checked against {version.stdout.strip()}")
+    try:
+        version = subprocess.run(
+            [BWOC, "--version"], capture_output=True, text=True, timeout=TIMEOUT_S
+        ).stdout.strip()
+    except subprocess.TimeoutExpired:
+        version = f"{BWOC} (--version hung)"
+        rejected.append(f"bwoc --version → hung past {TIMEOUT_S}s")
+    print(f"cli contract: {len(checked)} commands checked against {version}")
     for line in rejected:
         print(f"  ✗ {line}")
     return 1 if rejected else 0
