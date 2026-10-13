@@ -18,7 +18,7 @@ jobs:
     name: plugin structural smoke
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
       # `jq` is preinstalled on ubuntu-latest.
       - name: validate.sh
         run: bash scripts/validate.sh
@@ -27,7 +27,7 @@ jobs:
     name: CLI contract (latest bwoc release)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
       - name: install the latest bwoc release
         env:
           GH_TOKEN: ${{ github.token }}
