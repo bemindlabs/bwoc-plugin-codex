@@ -50,6 +50,13 @@ def argvs(cmd):
     # the shell-operator split below would otherwise cut through.
     cmd = re.sub(r"\[[^\]]*\]", "", cmd)
     cmd = re.split(r"\s+#|\s*(?:\|\||&&|;|\s\|\s)", cmd)[0]
+    # `<add\|list>` (a table cell's escaped pipe) lists real subcommands, not a
+    # placeholder: unwrap it to `add|list` so each alternative gets checked.
+    cmd = re.sub(
+        r"<([a-z][a-z0-9-]*(?:\\?\|[a-z][a-z0-9-]*)+)>",
+        lambda m: m.group(1).replace("\\|", "|"),
+        cmd,
+    )
     cmd = re.sub(r"<[^>]*>", PLACEHOLDER, cmd)  # <agent>, "<title>"
     cmd = cmd.replace("$ARGUMENTS", "").replace("…", "").replace("...", "")
     try:
@@ -84,17 +91,21 @@ def main():
                             timeout=TIMEOUT_S,
                         )
                     except subprocess.TimeoutExpired:
+                        # A wedged CLI would hang every remaining command too:
+                        # stop here instead of stalling CI for N × TIMEOUT_S.
                         rel = path.relative_to(ROOT)
-                        rejected.append(
-                            f"{rel}:{no}: bwoc {' '.join(argv)} → hung past {TIMEOUT_S}s"
+                        print(
+                            f"cli contract: {rel}:{no}: bwoc {' '.join(argv)} --help"
+                            f" → hung past {TIMEOUT_S}s"
                         )
-                        continue
+                        return 1
                     generic = any(
                         f"{what} '{PLACEHOLDER}'" in r.stderr
                         for what in ("unrecognized subcommand", "invalid value")
                     )
                     if r.returncode != 0 and not generic:
-                        why = (r.stderr or r.stdout).strip().splitlines()[:1]
+                        out = (r.stderr or r.stdout).strip().splitlines()
+                        why = out[0] if out else f"exit {r.returncode}, no output"
                         rel = path.relative_to(ROOT)
                         rejected.append(f"{rel}:{no}: bwoc {' '.join(argv)} → {why}")
     try:
